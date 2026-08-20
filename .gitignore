@@ -5,3 +5,4 @@ __pycache__/
 .chroma/
 *.pyc
 .DS_Store
+.Rhistory
