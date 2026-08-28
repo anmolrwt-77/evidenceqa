@@ -33,3 +33,36 @@ Question:
 
 Answer:
 """
+
+from openai import OpenAI
+
+from src.config import GROQ_API_KEY, GROQ_MODEL
+
+
+def get_llm_client() -> OpenAI:
+    if not GROQ_API_KEY:
+        raise ValueError(
+            "GROQ_API_KEY is missing. Put it in your .env file."
+        )
+    return OpenAI(
+        api_key=GROQ_API_KEY,
+        base_url="https://api.groq.com/openai/v1",
+    )
+
+
+def generate_answer(question: str, chunks: list[RetrievedChunk]) -> str:
+    prompt = build_prompt(question, chunks)
+    client = get_llm_client()
+
+    response = client.chat.completions.create(
+        model=GROQ_MODEL,
+        messages=[
+            {
+                "role": "user",
+                "content": prompt,
+            }
+        ],
+        temperature=0.1,
+    )
+
+    return response.choices[0].message.content.strip()
