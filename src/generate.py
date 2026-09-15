@@ -1,5 +1,11 @@
-from src.retrieve import RetrievedChunk
+import logging
 
+from openai import OpenAI
+
+from src.config import GROQ_API_KEY, GROQ_MODEL, MIN_SCORE, REFUSE_MESSAGE
+from src.retrieve import RetrievedChunk, retrieve
+
+logger = logging.getLogger(__name__)
 
 def format_context(chunks: list[RetrievedChunk]) -> str:
     if not chunks:
@@ -34,11 +40,6 @@ Question:
 Answer:
 """
 
-from openai import OpenAI
-
-from src.config import GROQ_API_KEY, GROQ_MODEL
-
-
 def get_llm_client() -> OpenAI:
     if not GROQ_API_KEY:
         raise ValueError(
@@ -66,15 +67,6 @@ def generate_answer(question: str, chunks: list[RetrievedChunk]) -> str:
     )
 
     return response.choices[0].message.content.strip()
-
-    
-import logging
-
-from src.config import MIN_SCORE, REFUSE_MESSAGE
-from src.retrieve import retrieve
-
-
-logger = logging.getLogger(__name__)
 
 
 def answer_question(
