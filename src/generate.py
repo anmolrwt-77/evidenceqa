@@ -66,3 +66,44 @@ def generate_answer(question: str, chunks: list[RetrievedChunk]) -> str:
     )
 
     return response.choices[0].message.content.strip()
+
+    
+import logging
+
+from src.config import MIN_SCORE, REFUSE_MESSAGE
+from src.retrieve import retrieve
+
+
+logger = logging.getLogger(__name__)
+
+
+def answer_question(
+    question: str,
+    k: int = 3,
+    min_score: float = MIN_SCORE,
+) -> dict:
+    chunks = retrieve(question, k=k, min_score=min_score)
+
+    if not chunks:
+        logger.info(
+            "score_gate refused question=%r min_score=%s (LLM not called)",
+            question,
+            min_score,
+        )
+        return {
+            "answer": REFUSE_MESSAGE,
+            "citations": [],
+            "scores": [],
+            "refused": True,
+        }
+
+    answer = generate_answer(question, chunks)
+    return {
+        "answer": answer,
+        "citations": [
+            {"source": c.source, "index": c.index, "score": c.score}
+            for c in chunks
+        ],
+        "scores": [c.score for c in chunks],
+        "refused": False,
+    }

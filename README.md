@@ -12,4 +12,12 @@ It retrieves relevant text, cites sources, and says "I don't know" when the docu
 
 This is a learning project, not legal advice.
 
-Status: in progress (Day 3). Corpus collected.
+
+
+## Retrieval gate
+
+EvidenceQA refuses to answer when the best retrieved chunk score is below **0.50**.
+
+In that case the LLM is not called. The system returns:
+
+`I don't know based on the provided documents.`
