@@ -12,8 +12,6 @@ It retrieves relevant text, cites sources, and says "I don't know" when the docu
 
 This is a learning project, not legal advice.
 
-
-
 ## Retrieval gate
 
 EvidenceQA refuses to answer when the best retrieved chunk score is below **0.50**.
@@ -21,3 +19,11 @@ EvidenceQA refuses to answer when the best retrieved chunk score is below **0.50
 In that case the LLM is not called. The system returns:
 
 `I don't know based on the provided documents.`
+
+
+
+## Run the API locally
+
+uvicorn src.api:app --reload --port 8000
+
+Then open [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
