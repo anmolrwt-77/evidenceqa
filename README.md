@@ -26,8 +26,18 @@ uvicorn src.api:app --reload --port 8000
 
 Then open [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-
-
 ## Evaluation
 
 Handmade eval set in `eval/questions.json`. Latest numbers are in `eval/results.md`.
+
+
+
+## Run the UI locally
+
+Terminal 1:
+
+uvicorn src.api:app --reload --port 8000
+
+Terminal 2:
+
+streamlit run ui/[app.py](http://app.py)
