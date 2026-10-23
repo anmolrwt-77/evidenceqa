@@ -1,0 +1,107 @@
+[
+    {
+      "id": 1,
+      "question": "What are the four core functions of the NIST AI Risk Management Framework?",
+      "should_refuse": false,
+      "must_include_source": "nist_ai_rmf_1.0.txt",
+      "must_include_keyword": "GOVERN"
+    },
+    {
+      "id": 2,
+      "question": "What is LLM01 in the OWASP Top 10 for LLM Applications 2026?",
+      "should_refuse": false,
+      "must_include_source": "owasp_llm01_prompt_injection.txt",
+      "must_include_keyword": "Prompt Injection"
+    },
+    {
+      "id": 3,
+      "question": "Give one example of a prohibited AI practice under the EU AI Act.",
+      "should_refuse": false,
+      "must_include_source": "eu_ai_act_2024_1689.txt",
+      "must_include_keyword": "manipulat"
+    },
+    {
+      "id": 4,
+      "question": "What does the EU AI Act require regarding AI literacy of staff?",
+      "should_refuse": false,
+      "must_include_source": "eu_ai_act_2024_1689.txt",
+      "must_include_keyword": "literacy"
+    },
+    {
+      "id": 5,
+      "question": "Name one risk that NIST associates specifically with generative AI.",
+      "should_refuse": false,
+      "must_include_source": "nist_genai_profile.txt",
+      "must_include_keyword": "CBRN"
+    },
+    {
+      "id": 6,
+      "question": "What is LLM09 in the OWASP Top 10 related to?",
+      "should_refuse": false,
+      "must_include_source": "owasp_llm09_vector_embedding.txt",
+      "must_include_keyword": "embedding"
+    },
+    {
+      "id": 7,
+      "question": "What are the four functions in the NIST AI RMF Core?",
+      "should_refuse": false,
+      "must_include_source": "nist_ai_rmf_1.0.txt",
+      "must_include_keyword": "MAP"
+    },
+    {
+      "id": 8,
+      "question": "Does the EU AI Act mention prohibited AI practices in Article 5?",
+      "should_refuse": false,
+      "must_include_source": "eu_ai_act_2024_1689.txt",
+      "must_include_keyword": "Article 5"
+    },
+    {
+      "id": 9,
+      "question": "What is the best pizza topping in Tokyo?",
+      "should_refuse": true,
+      "must_include_source": null,
+      "must_include_keyword": null
+    },
+    {
+      "id": 10,
+      "question": "Who won the 2018 FIFA World Cup?",
+      "should_refuse": true,
+      "must_include_source": null,
+      "must_include_keyword": null
+    },
+    {
+      "id": 11,
+      "question": "What is the capital of Mars?",
+      "should_refuse": true,
+      "must_include_source": null,
+      "must_include_keyword": null
+    },
+    {
+      "id": 12,
+      "question": "How do I bake sourdough bread at home?",
+      "should_refuse": true,
+      "must_include_source": null,
+      "must_include_keyword": null
+    },
+    {
+      "id": 13,
+      "question": "What smartphone should I buy in 2026?",
+      "should_refuse": true,
+      "must_include_source": null,
+      "must_include_keyword": null
+    },
+    {
+      "id": 14,
+      "question": "Write a poem about cats.",
+      "should_refuse": true,
+      "must_include_source": null,
+      "must_include_keyword": null
+    },
+    {
+      "id": 15,
+      "question": "What is prompt injection according to OWASP?",
+      "should_refuse": false,
+      "must_include_source": "owasp_llm01_prompt_injection.txt",
+      "must_include_keyword": "injection"
+    }
+  ]
