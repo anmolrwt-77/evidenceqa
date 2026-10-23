@@ -14,3 +14,7 @@ def test_overlap_must_be_smaller_than_size():
         assert False, "expected ValueError"
     except ValueError:
         pass
+
+def test_empty_text_returns_no_chunks():
+    chunks = chunk_text("   ", source="x.txt")
+    assert chunks == []
