@@ -45,3 +45,7 @@ def query_collection(collection, query_embedding, n_results: int = 3):
         query_embeddings=[query_embedding],
         n_results=n_results,
     )
+
+def index_is_ready(db_path: str = DEFAULT_DB_PATH) -> bool:
+    collection = get_collection(db_path)
+    return collection.count() > 0

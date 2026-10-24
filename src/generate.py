@@ -55,19 +55,27 @@ def generate_answer(question: str, chunks: list[RetrievedChunk]) -> str:
     prompt = build_prompt(question, chunks)
     client = get_llm_client()
 
-    response = client.chat.completions.create(
-        model=GROQ_MODEL,
-        messages=[
-            {
-                "role": "user",
-                "content": prompt,
-            }
-        ],
-        temperature=0.1,
-    )
+    try:
+        response = client.chat.completions.create(
+            model=GROQ_MODEL,
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            temperature=0.1,
+        )
+    except Exception as exc:
+        # Log type/message only — never log API keys
+        logger.exception("LLM call failed: %s", type(exc).__name__)
+        raise RuntimeError("LLM service unavailable") from exc
 
-    return response.choices[0].message.content.strip()
+    content = response.choices[0].message.content
+    if not content or not content.strip():
+        raise RuntimeError("LLM returned an empty answer")
 
+    return content.strip()
 
 def answer_question(
     question: str,
@@ -75,6 +83,14 @@ def answer_question(
     min_score: float = MIN_SCORE,
 ) -> dict:
     chunks = retrieve(question, k=k, min_score=min_score)
+    max_score = max((c.score for c in chunks), default=0.0)
+
+    logger.info(
+        "answer_question hits=%s max_score=%.4f refused_gate=%s",
+        len(chunks),
+        max_score,
+        len(chunks) == 0,
+    )
 
     if not chunks:
         logger.info(
@@ -88,6 +104,17 @@ def answer_question(
             "scores": [],
             "refused": True,
         }
+
+    answer = generate_answer(question, chunks)
+    return {
+        "answer": answer,
+        "citations": [
+            {"source": c.source, "index": c.index, "score": c.score}
+            for c in chunks
+        ],
+        "scores": [c.score for c in chunks],
+        "refused": False,
+    }
 
     answer = generate_answer(question, chunks)
     return {
