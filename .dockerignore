@@ -1,0 +1,14 @@
+venv/
+.venv/
+.git/
+.chroma/
+data/processed/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+.env
+eval/
+ui/
+tests/
+*.md

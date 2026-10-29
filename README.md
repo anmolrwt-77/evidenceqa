@@ -30,8 +30,6 @@ Then open [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
 Handmade eval set in `eval/questions.json`. Latest numbers are in `eval/results.md`.
 
-
-
 ## Run the UI locally
 
 Terminal 1:
@@ -41,3 +39,19 @@ uvicorn src.api:app --reload --port 8000
 Terminal 2:
 
 streamlit run ui/[app.py](http://app.py)
+
+
+
+## Docker (API)
+
+Build:
+
+docker build -t evidenceqa-api .
+
+Run (mount local index + env):
+
+docker run --rm -p 8000:8000 --env-file .env -v "$PWD/.chroma:/app/.chroma" evidenceqa-api
+
+Then:
+
+curl [http://127.0.0.1:8000/health](http://127.0.0.1:8000/health)
