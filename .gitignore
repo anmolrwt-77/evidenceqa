@@ -2,7 +2,6 @@
 venv/
 .venv/
 __pycache__/
-.chroma/
 *.pyc
 .DS_Store
 .Rhistory

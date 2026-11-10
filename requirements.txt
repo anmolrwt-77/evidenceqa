@@ -1,6 +1,7 @@
 pypdf
 pytest
-sentence-transformers
+fastembed
+numpy
 chromadb
 python-dotenv
 openai

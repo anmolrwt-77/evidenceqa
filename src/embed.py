@@ -1,22 +1,26 @@
-from sentence_transformers import SentenceTransformer
-from sentence_transformers.util import cos_sim
+import numpy as np
+from fastembed import TextEmbedding
 
 
 _model = None
 
 
-def get_model() -> SentenceTransformer:
+def get_model() -> TextEmbedding:
     global _model
     if _model is None:
-        # Small, common starter model. First run downloads it.
-        _model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+        # Same model as before, but run through ONNX (no PyTorch).
+        _model = TextEmbedding("sentence-transformers/all-MiniLM-L6-v2")
     return _model
 
 
-def embed_texts(texts: list[str]):
+def embed_texts(texts: list[str]) -> np.ndarray:
     model = get_model()
-    return model.encode(texts, normalize_embeddings=True)
+    vectors = np.array(list(model.embed(texts)), dtype=np.float32)
+    # Normalize so every vector has length 1 (same as before).
+    norms = np.linalg.norm(vectors, axis=1, keepdims=True)
+    return vectors / norms
 
 
 def similarity(a, b) -> float:
-    return float(cos_sim(a, b).item())
+    # For length-1 vectors, the dot product equals cosine similarity.
+    return float(np.dot(a, b))

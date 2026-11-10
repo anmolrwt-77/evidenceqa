@@ -1,0 +1,8 @@
+pypdf
+fastembed
+numpy
+chromadb
+python-dotenv
+openai
+fastapi
+uvicorn
