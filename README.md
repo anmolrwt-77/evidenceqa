@@ -41,17 +41,15 @@ EvidenceQA answers questions using only a curated corpus of public documents: th
 
 ## Demo
 
-**Live deployment (free):** [https://evidenceqa.onrender.com](https://evidenceqa.onrender.com)
+**Live app:** [https://evidenceqa.onrender.com](https://evidenceqa.onrender.com)
 
-| Link | What to try |
+| Endpoint | Description |
 |---|---|
-| [Home](https://evidenceqa.onrender.com/) | Sample questions, answer + citations, light/dark theme |
+| [Home](https://evidenceqa.onrender.com/) | Sample questions, grounded answers with citations, light/dark theme |
 | [Health](https://evidenceqa.onrender.com/health) | Service status and index readiness |
-| [API docs](https://evidenceqa.onrender.com/docs) | Interactive OpenAPI (`Try it out`) |
+| [API docs](https://evidenceqa.onrender.com/docs) | Interactive OpenAPI documentation |
 
-Render Free spins the service down after idle time. The first request after sleep can take about one minute.
-
-Optional local screenshots for the repository (add under `docs/screenshots/`):
+The free hosting tier may sleep after inactivity; the first request after idle can take about one minute.
 
 | Grounded answer with sources | Refusal when evidence is missing |
 |---|---|
@@ -348,9 +346,7 @@ Required environment variables on Render:
 | `GROQ_API_KEY` | Your Groq secret (set in the Render dashboard, never in Git) |
 | `GROQ_MODEL` | `openai/gpt-oss-20b` (optional; same default as local) |
 
-The container listens on the platform-provided `PORT`. Free instances sleep after about 15 minutes without traffic; the first request after sleep can take about one minute.
-
-Memory check during development: the image was verified locally with `docker run --memory=512m` and stayed under the limit during `/ask`.
+The container listens on the platform-provided `PORT`. Free instances sleep after about 15 minutes without traffic; the first request after sleep can take about one minute. Peak memory under a constrained 512 MB Docker limit stays within the free-tier budget during `/ask`.
 
 ---
 
